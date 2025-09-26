@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "VK Chat Search",
+  "version": "1.0",
+  "description": "Search for VK chats by name using messages.getConversations API.",
+  "permissions": [
+    "activeTab",
+    "identity",
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://api.vk.com/*"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}

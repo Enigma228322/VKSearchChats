@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>VK Chat Search</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      width: 300px;
+      padding: 10px;
+    }
+    input[type="text"] {
+      width: calc(100% - 22px);
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #5181b8;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #4a75a5;
+    }
+    #results {
+      margin-top: 15px;
+      border-top: 1px solid #eee;
+      padding-top: 10px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .chat-item {
+      padding: 8px 0;
+      border-bottom: 1px solid #eee;
+    }
+    .chat-item:last-child {
+      border-bottom: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>VK Chat Search</h1>
+  <input type="text" id="searchInput" placeholder="Search chat name...">
+  <button id="searchButton">Search</button>
+  <hr>
+  <h3>VK Access Token</h3>
+  <input type="text" id="accessTokenInput" placeholder="Enter your VK Access Token...">
+  <button id="saveTokenButton">Save Token</button>
+  <div id="tokenStatusMessage" style="margin-top: 5px; color: green;"></div>
+  <div id="results"></div>
+  <script src="lib/fuse.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
