@@ -54,6 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
         findAllMatches: true
       };
       fuse = new Fuse(allConversations, fuseOptions);
+      resultsDiv.innerHTML = `${allConversations.length} chats loaded. Start typing to search.`; // Update message after loading
       renderChats(allConversations); // Render all chats initially
     } catch (error) {
       resultsDiv.innerHTML = `Error loading chats: ${error.message}`;

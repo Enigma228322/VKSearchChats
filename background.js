@@ -9,17 +9,31 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
           return;
         }
 
-        const apiUrl = `https://api.vk.com/method/messages.getConversations?v=5.199&access_token=${accessToken}&count=200`;
-        const response = await fetch(apiUrl);
-        const data = await response.json();
+        let allConversations = [];
+        let offset = 0;
+        const limit = 200; // VK API allows max 200 per request for getConversations
+        let totalCount = Infinity;
 
-        if (data.error) {
-          sendResponse({ error: data.error.error_msg });
-          return;
+        while (offset < totalCount) {
+          const apiUrl = `https://api.vk.com/method/messages.getConversations?v=5.199&access_token=${accessToken}&count=${limit}&offset=${offset}&extended=1`;
+          const response = await fetch(apiUrl);
+          const data = await response.json();
+
+          if (data.error) {
+            sendResponse({ error: data.error.error_msg });
+            return;
+          }
+
+          if (data.response && data.response.items) {
+            allConversations = allConversations.concat(data.response.items.map(item => item.conversation));
+            totalCount = data.response.count; // Update total count from the first response
+            offset += limit;
+          } else {
+            break; // No more items or unexpected response structure
+          }
         }
 
-        const conversations = data.response.items;
-        sendResponse({ chats: conversations.map(item => item.conversation) });
+        sendResponse({ chats: allConversations });
 
       } catch (error) {
         sendResponse({ error: error.message });
